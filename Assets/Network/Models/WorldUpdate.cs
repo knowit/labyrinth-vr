@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 [Serializable]
-public class WorldUpdate 
+public class WorldUpdate
 {
-    [DataMember] public Quaternion Rotation { get; set; }
+    [DataMember] public Quaternion Rotation;
 }

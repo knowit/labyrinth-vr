@@ -5,5 +5,5 @@ using UnityEngine;
 [Serializable]
 public class PlayerUpdate
 {
-    [DataMember] public Vector3 Position { get; set; }
+    [DataMember] public Vector3 Position;
 }
