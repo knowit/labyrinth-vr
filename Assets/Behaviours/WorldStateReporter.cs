@@ -20,9 +20,12 @@ public class WorldStateReporter : MonoBehaviour
 
     void LateUpdate()
     {
-        _connection.SendUpdate(new WorldUpdate
+        var dx = Input.GetAxis("Horizontal");
+        var dy = Input.GetAxis("Vertical");
+
+        _connection.SendUpdate(new ControllerUpdate
         {
-            Rotation = transform.rotation
+            AnalogeAxis = new Vector2(dx, dy)
         });
     }
 }

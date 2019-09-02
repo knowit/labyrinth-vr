@@ -8,6 +8,8 @@ public class PlayerSpawner : MonoBehaviour
 
     private GameObject _playerInstance;
 
+    public Rigidbody Ball => _playerInstance?.GetComponent<Rigidbody>();
+
     public void SpawnPlayer()
     {
         _playerInstance = Instantiate(PlayerPrefab, transform.position, Quaternion.identity);

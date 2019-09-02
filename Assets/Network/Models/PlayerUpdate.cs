@@ -5,5 +5,6 @@ using UnityEngine;
 [Serializable]
 public class PlayerUpdate
 {
-    [DataMember] public Vector3 Position;
+    [DataMember] public Vector2 Position;
+    [DataMember] public Vector2 Rotation;
 }

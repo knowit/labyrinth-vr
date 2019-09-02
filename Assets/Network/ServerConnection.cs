@@ -30,7 +30,7 @@ public class ServerConnection : MonoBehaviour
 
     public void Register(Action<PlayerUpdate> callback) => _callbacks.Add(callback);
 
-    public async void SendUpdate(WorldUpdate update)
+    public async void SendUpdate(ControllerUpdate update)
     {
         if (_socketConnection != null)
         {

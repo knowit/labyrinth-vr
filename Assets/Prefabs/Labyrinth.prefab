@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 6776765246239809012}
   - component: {fileID: 1077912889022168573}
   - component: {fileID: 7568668169818099191}
+  - component: {fileID: 4389658502990070415}
   m_Layer: 0
   m_Name: Labyrinth
   m_TagString: Untagged
@@ -473,6 +474,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &4389658502990070415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686574823851324563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc04c10cb633c2d4585b7b2bed17f26c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerSpawner: {fileID: 8999831357625411196}
+  World: {fileID: 7568668169818099191}
 --- !u!1 &8205331948813684789
 GameObject:
   m_ObjectHideFlags: 0
