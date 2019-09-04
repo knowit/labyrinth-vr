@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,42 +15,53 @@ public class SocketConnection
         _connection = connection;
     }
 
-    public Task<int> Send(byte[] data)
+    public Task<int> Send<T>(T data) where T : IByteSerializable
     {
         var result = new TaskCompletionSource<int>();
 
-        _connection.BeginSend(data, 0, data.Length, 0,
-            ar =>
-            {
-                result.TrySetResult(_connection.EndSend(ar));
-            }, null);
+        using (var ms = new MemoryStream())
+        {
+            data.Serialize(ms);
+            var bytes = ms.ToArray();
 
-        return result.Task;
+            _connection.BeginSend(bytes, 0, bytes.Length, 0,
+                ar =>
+                {
+                    result.TrySetResult(_connection.EndSend(ar));
+                }, null);
+
+            return result.Task;
+        }
     }
 
-    public Task<byte[]> Receive()
+    public async Task<T> Receive<T>() where T : IByteSerializable, new()
     {
-        var result = new TaskCompletionSource<byte[]>();
-        var response = new List<byte>();
+        var result = new TaskCompletionSource<MemoryStream>();
+        using (var ms = new MemoryStream())
+        {
+            _connection.BeginReceive(Buffer, 0, 1024, SocketFlags.None, OnReceive, (result, ms));
 
-        _connection.BeginReceive(Buffer, 0, 1024, SocketFlags.None, OnReceive, (result, response));
+            await result.Task;
 
-        return result.Task;
+            var obj = new T();
+            obj.Deserialize(ms);
+            return obj;
+        }
     }
 
     private void OnReceive(IAsyncResult ar)
     {
         var bytesRead = _connection.EndReceive(ar);
-        var (result, response) = ((TaskCompletionSource<byte[]>, List<byte>))ar.AsyncState;
+        var (result, ms) = ((TaskCompletionSource<MemoryStream>, MemoryStream))ar.AsyncState;
 
         if (bytesRead > 0)
         {
-            response.AddRange(new ArraySegment<byte>(Buffer, 0, bytesRead));
-            _connection.BeginReceive(Buffer, 0, 1024, SocketFlags.None, OnReceive, (result, response));
+            ms.Write(Buffer, 0, bytesRead);
+            result.TrySetResult(ms);
         }
         else
         {
-            result.TrySetResult(response.ToArray());
+            _connection.BeginReceive(Buffer, 0, 1024, SocketFlags.None, OnReceive, (result, ms));
         }
     }
 }

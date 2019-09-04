@@ -1,9 +1,22 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.IO;
 using UnityEngine;
 
 [Serializable]
-public class ControllerUpdate
+public class ControllerUpdate : IByteSerializable
 {
-    [DataMember] public Vector2 AnalogeAxis;
+    public Vector2 AnalogeAxis;
+
+    public void Deserialize(MemoryStream stream)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Serialize(MemoryStream stream)
+    {
+        float[] floats = new[] {AnalogeAxis.x, AnalogeAxis.y};
+        var bytes = new byte[floats.Length * 4];
+        Buffer.BlockCopy(floats, 0, bytes, 0, floats.Length * 4);
+        stream.Write(bytes, 0, floats.Length * 4);
+    }
 }

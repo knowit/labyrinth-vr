@@ -28,6 +28,9 @@ public class WorldStateUpdater : MonoBehaviour
         {
             var update = _updateQueue.Dequeue();
 
+            Debug.Log(update.Position);
+            Debug.Log(update.Rotation);
+
             if (PlayerSpawner.Ball != null) 
                 PlayerSpawner.Ball.MovePosition(new Vector3(update.Position.x, 0.0f, update.Position.y));
 

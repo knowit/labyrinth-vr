@@ -18,12 +18,13 @@ public class ServerConnection : MonoBehaviour
 
         while (gameObject.scene.isLoaded)
         {
-            var res = await _socketConnection.Receive();
-            var update = JsonUtility.FromJson(Encoding.ASCII.GetString(res), typeof(PlayerUpdate)) as PlayerUpdate;
+            var res = await _socketConnection.Receive<PlayerUpdate>();
+
+            Debug.Log(res.Position);
 
             foreach (var callback in _callbacks)
             {
-                callback(update);
+                callback(res);
             }
         }
     }
@@ -34,8 +35,7 @@ public class ServerConnection : MonoBehaviour
     {
         if (_socketConnection != null)
         {
-            var messageBytes = Encoding.ASCII.GetBytes(JsonUtility.ToJson(update));
-            await _socketConnection.Send(messageBytes);
+            await _socketConnection.Send(update);
         }
     }
 }

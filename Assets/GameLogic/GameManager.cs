@@ -15,13 +15,11 @@ public class GameManager : MonoBehaviour
         UIObject.gameObject.SetActive(false);
 
         Spawner.SpawnPlayer();
-        //WorldObject.AddComponent<WorldTilt>();
     }
 
     public void RestartGame()
     {
         Spawner.DeSpawnPlayer();
-        //Destroy(WorldObject.GetComponent<WorldTilt>());
 
         OverviewCamera.gameObject.SetActive(true);
         UIObject.gameObject.SetActive(true);
