@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.WebSockets;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WorldStateReporter : MonoBehaviour
 {
@@ -23,9 +18,20 @@ public class WorldStateReporter : MonoBehaviour
         var dx = Input.GetAxis("Horizontal");
         var dy = Input.GetAxis("Vertical");
 
-        _connection.SendUpdate(new ControllerUpdate
+        _connection.SendUpdate(new GameUpdate
         {
-            AnalogeAxis = new Vector2(dx, dy)
+            Data = new GameMessage
+            {
+                InputUpdate = new InputUpdate
+                {
+                    CameraOrientation = Quaternion.identity.ToMessageQuat(),
+                    InputAnalogeAxis = new Vec2
+                    {
+                        X = dx,
+                        Y = dy
+                    }
+                }
+            }
         });
     }
 }

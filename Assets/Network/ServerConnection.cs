@@ -10,7 +10,7 @@ public class ServerConnection : MonoBehaviour
 
     private readonly SocketClient _clientSocket = new SocketClient();
     private SocketConnection _socketConnection;
-    private readonly IList<Action<PlayerUpdate>> _callbacks = new List<Action<PlayerUpdate>>();
+    private readonly IList<Action<GameUpdate>> _callbacks = new List<Action<GameUpdate>>();
 
     async void Start()
     {
@@ -18,9 +18,7 @@ public class ServerConnection : MonoBehaviour
 
         while (gameObject.scene.isLoaded)
         {
-            var res = await _socketConnection.Receive<PlayerUpdate>();
-
-            Debug.Log(res.Position);
+            var res = await _socketConnection.Receive();
 
             foreach (var callback in _callbacks)
             {
@@ -29,9 +27,9 @@ public class ServerConnection : MonoBehaviour
         }
     }
 
-    public void Register(Action<PlayerUpdate> callback) => _callbacks.Add(callback);
+    public void Register(Action<GameUpdate> callback) => _callbacks.Add(callback);
 
-    public async void SendUpdate(ControllerUpdate update)
+    public async void SendUpdate(GameUpdate update)
     {
         if (_socketConnection != null)
         {

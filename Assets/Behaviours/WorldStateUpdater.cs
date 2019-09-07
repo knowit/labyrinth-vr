@@ -8,7 +8,7 @@ public class WorldStateUpdater : MonoBehaviour
     public Rigidbody World;
 
     private ServerConnection _connection;
-    private readonly Queue<PlayerUpdate> _updateQueue = new Queue<PlayerUpdate>();
+    private readonly Queue<GameUpdate> _updateQueue = new Queue<GameUpdate>();
 
     void Start()
     {
@@ -28,13 +28,16 @@ public class WorldStateUpdater : MonoBehaviour
         {
             var update = _updateQueue.Dequeue();
 
-            Debug.Log(update.Position);
-            Debug.Log(update.Rotation);
+            var position = update.Data.GameState.Position.ToUnityVector3XZ();
+            var rotation = update.Data.GameState.Rotation.ToUnityQuaternionAsEulerRotationXZ();
+            
+            Debug.Log(position);
+            Debug.Log(rotation);
 
             if (PlayerSpawner.Ball != null) 
-                PlayerSpawner.Ball.MovePosition(new Vector3(update.Position.x, 0.0f, update.Position.y));
+                PlayerSpawner.Ball.MovePosition(position);
 
-            World.MoveRotation(Quaternion.Euler(update.Rotation.x, 0.0f, update.Rotation.y));
+            World.MoveRotation(rotation);
         }
     }
 }
