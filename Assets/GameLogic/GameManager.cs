@@ -5,13 +5,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public PlayerSpawner Spawner;
-    public Camera OverviewCamera;
+    public Transform OverviewPosition;
+    public CameraMover Camera;
     public Canvas UIObject;
     public GameObject WorldObject;
 
+    void Start()
+    {
+        Camera.Move(OverviewPosition.position);
+    }
+
     public void StartGame()
     {
-        OverviewCamera.gameObject.SetActive(false);
         UIObject.gameObject.SetActive(false);
 
         Spawner.SpawnPlayer();
@@ -19,9 +24,9 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Spawner.DeSpawnPlayer();
+        Camera.MoveAndRotate(OverviewPosition.position, OverviewPosition.rotation);
 
-        OverviewCamera.gameObject.SetActive(true);
+        Spawner.DeSpawnPlayer();
         UIObject.gameObject.SetActive(true);
     }
 }

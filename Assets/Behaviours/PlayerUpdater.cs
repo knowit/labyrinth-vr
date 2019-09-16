@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerUpdater : MonoBehaviour
 {
     public Rigidbody Ball;
-    public Transform Camera;
     
-    void FixedUpdate()
+    void LateUpdate()
     {
-        Camera.position = Ball.position;
+        var playerController = FindObjectOfType<CameraMover>();
+        playerController.Move(Ball.position);
     }
 }
