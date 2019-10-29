@@ -28,8 +28,8 @@ public class WorldStateUpdater : MonoBehaviour
         {
             var update = _updateQueue.Dequeue();
 
-            var position = update.Data.GameState.Position.ToUnityVector3XZ();
-            var rotation = update.Data.GameState.Rotation.ToUnityQuaternionAsEulerRotationXZ();
+            var position = update.Data.LabyrinthStateUpdate.Position.ToUnityVector3XZ();
+            var rotation = update.Data.LabyrinthStateUpdate.BoardOrientation.ToUnityQuaternionAsEulerRotationXZ();
             
             Debug.Log(position);
             Debug.Log(rotation);

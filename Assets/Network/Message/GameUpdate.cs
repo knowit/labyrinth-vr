@@ -23,29 +23,39 @@ public static partial class GameUpdateReflection {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
           "ChBHYW1lVXBkYXRlLnByb3RvIhwKBFZlYzISCQoBeBgBIAEoAhIJCgF5GAIg",
-          "ASgCIjIKBFF1YXQSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIS",
-          "CQoBdxgEIAEoAiJTCgtJbnB1dFVwZGF0ZRIhChJpbnB1dF9hbmFsb2dlX2F4",
-          "aXMYASABKAsyBS5WZWMyEiEKEmNhbWVyYV9vcmllbnRhdGlvbhgCIAEoCzIF",
-          "LlF1YXQiPQoJR2FtZVN0YXRlEhcKCHJvdGF0aW9uGAEgASgLMgUuVmVjMhIX",
-          "Cghwb3NpdGlvbhgCIAEoCzIFLlZlYzIiZwoLR2FtZU1lc3NhZ2USJAoMaW5w",
-          "dXRfdXBkYXRlGAEgASgLMgwuSW5wdXRVcGRhdGVIABIgCgpnYW1lX3N0YXRl",
-          "GAIgASgLMgouR2FtZVN0YXRlSABCEAoOb25lb2ZfbWVzc2FnZXMiNwoKR2Ft",
-          "ZVVwZGF0ZRINCgVldmVudBgBIAEoCRIaCgRkYXRhGAIgASgLMgwuR2FtZU1l",
-          "c3NhZ2ViBnByb3RvMw=="));
+          "ASgCIjEKE1ZST3JpZW50YXRpb25VcGRhdGUSGgoLb3JpZW50YXRpb24YASAB",
+          "KAsyBS5WZWMyIlEKFExhYnlyaW50aFN0YXRlVXBkYXRlEiAKEWJvYXJkX29y",
+          "aWVudGF0aW9uGAEgASgLMgUuVmVjMhIXCghwb3NpdGlvbhgCIAEoCzIFLlZl",
+          "YzIijwEKC0dhbWVNZXNzYWdlEjUKFXZyX29yaWVudGF0aW9uX3VwZGF0ZRgB",
+          "IAEoCzIULlZST3JpZW50YXRpb25VcGRhdGVIABI3ChZsYWJ5cmludGhfc3Rh",
+          "dGVfdXBkYXRlGAIgASgLMhUuTGFieXJpbnRoU3RhdGVVcGRhdGVIAEIQCg5v",
+          "bmVvZl9tZXNzYWdlcyJDCgpHYW1lVXBkYXRlEhkKBWV2ZW50GAEgASgOMgou",
+          "R2FtZUV2ZW50EhoKBGRhdGEYAiABKAsyDC5HYW1lTWVzc2FnZSpNCglHYW1l",
+          "RXZlbnQSEgoOVlJfT1JJRU5UQVRJT04QABIKCgZGSU5JU0gQARILCgdQTEFZ",
+          "SU5HEAISEwoPTEFCWVJJTlRIX1NUQVRFEANiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEvent), }, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Vec2), global::Vec2.Parser, new[]{ "X", "Y" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Quat), global::Quat.Parser, new[]{ "X", "Y", "Z", "W" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::InputUpdate), global::InputUpdate.Parser, new[]{ "InputAnalogeAxis", "CameraOrientation" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "Rotation", "Position" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameMessage), global::GameMessage.Parser, new[]{ "InputUpdate", "GameState" }, new[]{ "OneofMessages" }, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::VROrientationUpdate), global::VROrientationUpdate.Parser, new[]{ "Orientation" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::LabyrinthStateUpdate), global::LabyrinthStateUpdate.Parser, new[]{ "BoardOrientation", "Position" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameMessage), global::GameMessage.Parser, new[]{ "VrOrientationUpdate", "LabyrinthStateUpdate" }, new[]{ "OneofMessages" }, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameUpdate), global::GameUpdate.Parser, new[]{ "Event", "Data" }, null, null, null)
         }));
   }
   #endregion
 
 }
+#region Enums
+public enum GameEvent {
+  [pbr::OriginalName("VR_ORIENTATION")] VrOrientation = 0,
+  [pbr::OriginalName("FINISH")] Finish = 1,
+  [pbr::OriginalName("PLAYING")] Playing = 2,
+  [pbr::OriginalName("LABYRINTH_STATE")] LabyrinthState = 3,
+}
+
+#endregion
+
 #region Messages
 public sealed partial class Vec2 : pb::IMessage<Vec2> {
   private static readonly pb::MessageParser<Vec2> _parser = new pb::MessageParser<Vec2>(() => new Vec2());
@@ -204,11 +214,11 @@ public sealed partial class Vec2 : pb::IMessage<Vec2> {
 
 }
 
-public sealed partial class Quat : pb::IMessage<Quat> {
-  private static readonly pb::MessageParser<Quat> _parser = new pb::MessageParser<Quat>(() => new Quat());
+public sealed partial class VROrientationUpdate : pb::IMessage<VROrientationUpdate> {
+  private static readonly pb::MessageParser<VROrientationUpdate> _parser = new pb::MessageParser<VROrientationUpdate>(() => new VROrientationUpdate());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<Quat> Parser { get { return _parser; } }
+  public static pb::MessageParser<VROrientationUpdate> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
@@ -221,97 +231,55 @@ public sealed partial class Quat : pb::IMessage<Quat> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Quat() {
+  public VROrientationUpdate() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Quat(Quat other) : this() {
-    x_ = other.x_;
-    y_ = other.y_;
-    z_ = other.z_;
-    w_ = other.w_;
+  public VROrientationUpdate(VROrientationUpdate other) : this() {
+    orientation_ = other.orientation_ != null ? other.orientation_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Quat Clone() {
-    return new Quat(this);
+  public VROrientationUpdate Clone() {
+    return new VROrientationUpdate(this);
   }
 
-  /// <summary>Field number for the "x" field.</summary>
-  public const int XFieldNumber = 1;
-  private float x_;
+  /// <summary>Field number for the "orientation" field.</summary>
+  public const int OrientationFieldNumber = 1;
+  private global::Vec2 orientation_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float X {
-    get { return x_; }
+  public global::Vec2 Orientation {
+    get { return orientation_; }
     set {
-      x_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "y" field.</summary>
-  public const int YFieldNumber = 2;
-  private float y_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float Y {
-    get { return y_; }
-    set {
-      y_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "z" field.</summary>
-  public const int ZFieldNumber = 3;
-  private float z_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float Z {
-    get { return z_; }
-    set {
-      z_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "w" field.</summary>
-  public const int WFieldNumber = 4;
-  private float w_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float W {
-    get { return w_; }
-    set {
-      w_ = value;
+      orientation_ = value;
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
-    return Equals(other as Quat);
+    return Equals(other as VROrientationUpdate);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(Quat other) {
+  public bool Equals(VROrientationUpdate other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Z, other.Z)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(W, other.W)) return false;
+    if (!object.Equals(Orientation, other.Orientation)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
-    if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
-    if (Z != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Z);
-    if (W != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(W);
+    if (orientation_ != null) hash ^= Orientation.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -325,198 +293,9 @@ public sealed partial class Quat : pb::IMessage<Quat> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (X != 0F) {
-      output.WriteRawTag(13);
-      output.WriteFloat(X);
-    }
-    if (Y != 0F) {
-      output.WriteRawTag(21);
-      output.WriteFloat(Y);
-    }
-    if (Z != 0F) {
-      output.WriteRawTag(29);
-      output.WriteFloat(Z);
-    }
-    if (W != 0F) {
-      output.WriteRawTag(37);
-      output.WriteFloat(W);
-    }
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(output);
-    }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public int CalculateSize() {
-    int size = 0;
-    if (X != 0F) {
-      size += 1 + 4;
-    }
-    if (Y != 0F) {
-      size += 1 + 4;
-    }
-    if (Z != 0F) {
-      size += 1 + 4;
-    }
-    if (W != 0F) {
-      size += 1 + 4;
-    }
-    if (_unknownFields != null) {
-      size += _unknownFields.CalculateSize();
-    }
-    return size;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(Quat other) {
-    if (other == null) {
-      return;
-    }
-    if (other.X != 0F) {
-      X = other.X;
-    }
-    if (other.Y != 0F) {
-      Y = other.Y;
-    }
-    if (other.Z != 0F) {
-      Z = other.Z;
-    }
-    if (other.W != 0F) {
-      W = other.W;
-    }
-    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(pb::CodedInputStream input) {
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-          break;
-        case 13: {
-          X = input.ReadFloat();
-          break;
-        }
-        case 21: {
-          Y = input.ReadFloat();
-          break;
-        }
-        case 29: {
-          Z = input.ReadFloat();
-          break;
-        }
-        case 37: {
-          W = input.ReadFloat();
-          break;
-        }
-      }
-    }
-  }
-
-}
-
-public sealed partial class InputUpdate : pb::IMessage<InputUpdate> {
-  private static readonly pb::MessageParser<InputUpdate> _parser = new pb::MessageParser<InputUpdate>(() => new InputUpdate());
-  private pb::UnknownFieldSet _unknownFields;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<InputUpdate> Parser { get { return _parser; } }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pbr::MessageDescriptor Descriptor {
-    get { return global::GameUpdateReflection.Descriptor.MessageTypes[2]; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  pbr::MessageDescriptor pb::IMessage.Descriptor {
-    get { return Descriptor; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public InputUpdate() {
-    OnConstruction();
-  }
-
-  partial void OnConstruction();
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public InputUpdate(InputUpdate other) : this() {
-    inputAnalogeAxis_ = other.inputAnalogeAxis_ != null ? other.inputAnalogeAxis_.Clone() : null;
-    cameraOrientation_ = other.cameraOrientation_ != null ? other.cameraOrientation_.Clone() : null;
-    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public InputUpdate Clone() {
-    return new InputUpdate(this);
-  }
-
-  /// <summary>Field number for the "input_analoge_axis" field.</summary>
-  public const int InputAnalogeAxisFieldNumber = 1;
-  private global::Vec2 inputAnalogeAxis_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Vec2 InputAnalogeAxis {
-    get { return inputAnalogeAxis_; }
-    set {
-      inputAnalogeAxis_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "camera_orientation" field.</summary>
-  public const int CameraOrientationFieldNumber = 2;
-  private global::Quat cameraOrientation_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Quat CameraOrientation {
-    get { return cameraOrientation_; }
-    set {
-      cameraOrientation_ = value;
-    }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public override bool Equals(object other) {
-    return Equals(other as InputUpdate);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(InputUpdate other) {
-    if (ReferenceEquals(other, null)) {
-      return false;
-    }
-    if (ReferenceEquals(other, this)) {
-      return true;
-    }
-    if (!object.Equals(InputAnalogeAxis, other.InputAnalogeAxis)) return false;
-    if (!object.Equals(CameraOrientation, other.CameraOrientation)) return false;
-    return Equals(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public override int GetHashCode() {
-    int hash = 1;
-    if (inputAnalogeAxis_ != null) hash ^= InputAnalogeAxis.GetHashCode();
-    if (cameraOrientation_ != null) hash ^= CameraOrientation.GetHashCode();
-    if (_unknownFields != null) {
-      hash ^= _unknownFields.GetHashCode();
-    }
-    return hash;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public override string ToString() {
-    return pb::JsonFormatter.ToDiagnosticString(this);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void WriteTo(pb::CodedOutputStream output) {
-    if (inputAnalogeAxis_ != null) {
+    if (orientation_ != null) {
       output.WriteRawTag(10);
-      output.WriteMessage(InputAnalogeAxis);
-    }
-    if (cameraOrientation_ != null) {
-      output.WriteRawTag(18);
-      output.WriteMessage(CameraOrientation);
+      output.WriteMessage(Orientation);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -526,11 +305,8 @@ public sealed partial class InputUpdate : pb::IMessage<InputUpdate> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (inputAnalogeAxis_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(InputAnalogeAxis);
-    }
-    if (cameraOrientation_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(CameraOrientation);
+    if (orientation_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Orientation);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -539,21 +315,15 @@ public sealed partial class InputUpdate : pb::IMessage<InputUpdate> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(InputUpdate other) {
+  public void MergeFrom(VROrientationUpdate other) {
     if (other == null) {
       return;
     }
-    if (other.inputAnalogeAxis_ != null) {
-      if (inputAnalogeAxis_ == null) {
-        inputAnalogeAxis_ = new global::Vec2();
+    if (other.orientation_ != null) {
+      if (orientation_ == null) {
+        orientation_ = new global::Vec2();
       }
-      InputAnalogeAxis.MergeFrom(other.InputAnalogeAxis);
-    }
-    if (other.cameraOrientation_ != null) {
-      if (cameraOrientation_ == null) {
-        cameraOrientation_ = new global::Quat();
-      }
-      CameraOrientation.MergeFrom(other.CameraOrientation);
+      Orientation.MergeFrom(other.Orientation);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -567,17 +337,10 @@ public sealed partial class InputUpdate : pb::IMessage<InputUpdate> {
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          if (inputAnalogeAxis_ == null) {
-            inputAnalogeAxis_ = new global::Vec2();
+          if (orientation_ == null) {
+            orientation_ = new global::Vec2();
           }
-          input.ReadMessage(inputAnalogeAxis_);
-          break;
-        }
-        case 18: {
-          if (cameraOrientation_ == null) {
-            cameraOrientation_ = new global::Quat();
-          }
-          input.ReadMessage(cameraOrientation_);
+          input.ReadMessage(orientation_);
           break;
         }
       }
@@ -586,15 +349,15 @@ public sealed partial class InputUpdate : pb::IMessage<InputUpdate> {
 
 }
 
-public sealed partial class GameState : pb::IMessage<GameState> {
-  private static readonly pb::MessageParser<GameState> _parser = new pb::MessageParser<GameState>(() => new GameState());
+public sealed partial class LabyrinthStateUpdate : pb::IMessage<LabyrinthStateUpdate> {
+  private static readonly pb::MessageParser<LabyrinthStateUpdate> _parser = new pb::MessageParser<LabyrinthStateUpdate>(() => new LabyrinthStateUpdate());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<GameState> Parser { get { return _parser; } }
+  public static pb::MessageParser<LabyrinthStateUpdate> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::GameUpdateReflection.Descriptor.MessageTypes[3]; }
+    get { return global::GameUpdateReflection.Descriptor.MessageTypes[2]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -603,32 +366,32 @@ public sealed partial class GameState : pb::IMessage<GameState> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public GameState() {
+  public LabyrinthStateUpdate() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public GameState(GameState other) : this() {
-    rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
+  public LabyrinthStateUpdate(LabyrinthStateUpdate other) : this() {
+    boardOrientation_ = other.boardOrientation_ != null ? other.boardOrientation_.Clone() : null;
     position_ = other.position_ != null ? other.position_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public GameState Clone() {
-    return new GameState(this);
+  public LabyrinthStateUpdate Clone() {
+    return new LabyrinthStateUpdate(this);
   }
 
-  /// <summary>Field number for the "rotation" field.</summary>
-  public const int RotationFieldNumber = 1;
-  private global::Vec2 rotation_;
+  /// <summary>Field number for the "board_orientation" field.</summary>
+  public const int BoardOrientationFieldNumber = 1;
+  private global::Vec2 boardOrientation_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Vec2 Rotation {
-    get { return rotation_; }
+  public global::Vec2 BoardOrientation {
+    get { return boardOrientation_; }
     set {
-      rotation_ = value;
+      boardOrientation_ = value;
     }
   }
 
@@ -645,18 +408,18 @@ public sealed partial class GameState : pb::IMessage<GameState> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
-    return Equals(other as GameState);
+    return Equals(other as LabyrinthStateUpdate);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(GameState other) {
+  public bool Equals(LabyrinthStateUpdate other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(Rotation, other.Rotation)) return false;
+    if (!object.Equals(BoardOrientation, other.BoardOrientation)) return false;
     if (!object.Equals(Position, other.Position)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -664,7 +427,7 @@ public sealed partial class GameState : pb::IMessage<GameState> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (rotation_ != null) hash ^= Rotation.GetHashCode();
+    if (boardOrientation_ != null) hash ^= BoardOrientation.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -679,9 +442,9 @@ public sealed partial class GameState : pb::IMessage<GameState> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (rotation_ != null) {
+    if (boardOrientation_ != null) {
       output.WriteRawTag(10);
-      output.WriteMessage(Rotation);
+      output.WriteMessage(BoardOrientation);
     }
     if (position_ != null) {
       output.WriteRawTag(18);
@@ -695,8 +458,8 @@ public sealed partial class GameState : pb::IMessage<GameState> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (rotation_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
+    if (boardOrientation_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(BoardOrientation);
     }
     if (position_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
@@ -708,15 +471,15 @@ public sealed partial class GameState : pb::IMessage<GameState> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(GameState other) {
+  public void MergeFrom(LabyrinthStateUpdate other) {
     if (other == null) {
       return;
     }
-    if (other.rotation_ != null) {
-      if (rotation_ == null) {
-        rotation_ = new global::Vec2();
+    if (other.boardOrientation_ != null) {
+      if (boardOrientation_ == null) {
+        boardOrientation_ = new global::Vec2();
       }
-      Rotation.MergeFrom(other.Rotation);
+      BoardOrientation.MergeFrom(other.BoardOrientation);
     }
     if (other.position_ != null) {
       if (position_ == null) {
@@ -736,10 +499,10 @@ public sealed partial class GameState : pb::IMessage<GameState> {
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          if (rotation_ == null) {
-            rotation_ = new global::Vec2();
+          if (boardOrientation_ == null) {
+            boardOrientation_ = new global::Vec2();
           }
-          input.ReadMessage(rotation_);
+          input.ReadMessage(boardOrientation_);
           break;
         }
         case 18: {
@@ -763,7 +526,7 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::GameUpdateReflection.Descriptor.MessageTypes[4]; }
+    get { return global::GameUpdateReflection.Descriptor.MessageTypes[3]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -781,11 +544,11 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public GameMessage(GameMessage other) : this() {
     switch (other.OneofMessagesCase) {
-      case OneofMessagesOneofCase.InputUpdate:
-        InputUpdate = other.InputUpdate.Clone();
+      case OneofMessagesOneofCase.VrOrientationUpdate:
+        VrOrientationUpdate = other.VrOrientationUpdate.Clone();
         break;
-      case OneofMessagesOneofCase.GameState:
-        GameState = other.GameState.Clone();
+      case OneofMessagesOneofCase.LabyrinthStateUpdate:
+        LabyrinthStateUpdate = other.LabyrinthStateUpdate.Clone();
         break;
     }
 
@@ -797,25 +560,25 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
     return new GameMessage(this);
   }
 
-  /// <summary>Field number for the "input_update" field.</summary>
-  public const int InputUpdateFieldNumber = 1;
+  /// <summary>Field number for the "vr_orientation_update" field.</summary>
+  public const int VrOrientationUpdateFieldNumber = 1;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::InputUpdate InputUpdate {
-    get { return oneofMessagesCase_ == OneofMessagesOneofCase.InputUpdate ? (global::InputUpdate) oneofMessages_ : null; }
+  public global::VROrientationUpdate VrOrientationUpdate {
+    get { return oneofMessagesCase_ == OneofMessagesOneofCase.VrOrientationUpdate ? (global::VROrientationUpdate) oneofMessages_ : null; }
     set {
       oneofMessages_ = value;
-      oneofMessagesCase_ = value == null ? OneofMessagesOneofCase.None : OneofMessagesOneofCase.InputUpdate;
+      oneofMessagesCase_ = value == null ? OneofMessagesOneofCase.None : OneofMessagesOneofCase.VrOrientationUpdate;
     }
   }
 
-  /// <summary>Field number for the "game_state" field.</summary>
-  public const int GameStateFieldNumber = 2;
+  /// <summary>Field number for the "labyrinth_state_update" field.</summary>
+  public const int LabyrinthStateUpdateFieldNumber = 2;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::GameState GameState {
-    get { return oneofMessagesCase_ == OneofMessagesOneofCase.GameState ? (global::GameState) oneofMessages_ : null; }
+  public global::LabyrinthStateUpdate LabyrinthStateUpdate {
+    get { return oneofMessagesCase_ == OneofMessagesOneofCase.LabyrinthStateUpdate ? (global::LabyrinthStateUpdate) oneofMessages_ : null; }
     set {
       oneofMessages_ = value;
-      oneofMessagesCase_ = value == null ? OneofMessagesOneofCase.None : OneofMessagesOneofCase.GameState;
+      oneofMessagesCase_ = value == null ? OneofMessagesOneofCase.None : OneofMessagesOneofCase.LabyrinthStateUpdate;
     }
   }
 
@@ -823,8 +586,8 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
   /// <summary>Enum of possible cases for the "oneof_messages" oneof.</summary>
   public enum OneofMessagesOneofCase {
     None = 0,
-    InputUpdate = 1,
-    GameState = 2,
+    VrOrientationUpdate = 1,
+    LabyrinthStateUpdate = 2,
   }
   private OneofMessagesOneofCase oneofMessagesCase_ = OneofMessagesOneofCase.None;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -851,8 +614,8 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(InputUpdate, other.InputUpdate)) return false;
-    if (!object.Equals(GameState, other.GameState)) return false;
+    if (!object.Equals(VrOrientationUpdate, other.VrOrientationUpdate)) return false;
+    if (!object.Equals(LabyrinthStateUpdate, other.LabyrinthStateUpdate)) return false;
     if (OneofMessagesCase != other.OneofMessagesCase) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -860,8 +623,8 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (oneofMessagesCase_ == OneofMessagesOneofCase.InputUpdate) hash ^= InputUpdate.GetHashCode();
-    if (oneofMessagesCase_ == OneofMessagesOneofCase.GameState) hash ^= GameState.GetHashCode();
+    if (oneofMessagesCase_ == OneofMessagesOneofCase.VrOrientationUpdate) hash ^= VrOrientationUpdate.GetHashCode();
+    if (oneofMessagesCase_ == OneofMessagesOneofCase.LabyrinthStateUpdate) hash ^= LabyrinthStateUpdate.GetHashCode();
     hash ^= (int) oneofMessagesCase_;
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -876,13 +639,13 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (oneofMessagesCase_ == OneofMessagesOneofCase.InputUpdate) {
+    if (oneofMessagesCase_ == OneofMessagesOneofCase.VrOrientationUpdate) {
       output.WriteRawTag(10);
-      output.WriteMessage(InputUpdate);
+      output.WriteMessage(VrOrientationUpdate);
     }
-    if (oneofMessagesCase_ == OneofMessagesOneofCase.GameState) {
+    if (oneofMessagesCase_ == OneofMessagesOneofCase.LabyrinthStateUpdate) {
       output.WriteRawTag(18);
-      output.WriteMessage(GameState);
+      output.WriteMessage(LabyrinthStateUpdate);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -892,11 +655,11 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (oneofMessagesCase_ == OneofMessagesOneofCase.InputUpdate) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(InputUpdate);
+    if (oneofMessagesCase_ == OneofMessagesOneofCase.VrOrientationUpdate) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(VrOrientationUpdate);
     }
-    if (oneofMessagesCase_ == OneofMessagesOneofCase.GameState) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(GameState);
+    if (oneofMessagesCase_ == OneofMessagesOneofCase.LabyrinthStateUpdate) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(LabyrinthStateUpdate);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -910,17 +673,17 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
       return;
     }
     switch (other.OneofMessagesCase) {
-      case OneofMessagesOneofCase.InputUpdate:
-        if (InputUpdate == null) {
-          InputUpdate = new global::InputUpdate();
+      case OneofMessagesOneofCase.VrOrientationUpdate:
+        if (VrOrientationUpdate == null) {
+          VrOrientationUpdate = new global::VROrientationUpdate();
         }
-        InputUpdate.MergeFrom(other.InputUpdate);
+        VrOrientationUpdate.MergeFrom(other.VrOrientationUpdate);
         break;
-      case OneofMessagesOneofCase.GameState:
-        if (GameState == null) {
-          GameState = new global::GameState();
+      case OneofMessagesOneofCase.LabyrinthStateUpdate:
+        if (LabyrinthStateUpdate == null) {
+          LabyrinthStateUpdate = new global::LabyrinthStateUpdate();
         }
-        GameState.MergeFrom(other.GameState);
+        LabyrinthStateUpdate.MergeFrom(other.LabyrinthStateUpdate);
         break;
     }
 
@@ -936,21 +699,21 @@ public sealed partial class GameMessage : pb::IMessage<GameMessage> {
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          global::InputUpdate subBuilder = new global::InputUpdate();
-          if (oneofMessagesCase_ == OneofMessagesOneofCase.InputUpdate) {
-            subBuilder.MergeFrom(InputUpdate);
+          global::VROrientationUpdate subBuilder = new global::VROrientationUpdate();
+          if (oneofMessagesCase_ == OneofMessagesOneofCase.VrOrientationUpdate) {
+            subBuilder.MergeFrom(VrOrientationUpdate);
           }
           input.ReadMessage(subBuilder);
-          InputUpdate = subBuilder;
+          VrOrientationUpdate = subBuilder;
           break;
         }
         case 18: {
-          global::GameState subBuilder = new global::GameState();
-          if (oneofMessagesCase_ == OneofMessagesOneofCase.GameState) {
-            subBuilder.MergeFrom(GameState);
+          global::LabyrinthStateUpdate subBuilder = new global::LabyrinthStateUpdate();
+          if (oneofMessagesCase_ == OneofMessagesOneofCase.LabyrinthStateUpdate) {
+            subBuilder.MergeFrom(LabyrinthStateUpdate);
           }
           input.ReadMessage(subBuilder);
-          GameState = subBuilder;
+          LabyrinthStateUpdate = subBuilder;
           break;
         }
       }
@@ -967,7 +730,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::GameUpdateReflection.Descriptor.MessageTypes[5]; }
+    get { return global::GameUpdateReflection.Descriptor.MessageTypes[4]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -996,12 +759,12 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate> {
 
   /// <summary>Field number for the "event" field.</summary>
   public const int EventFieldNumber = 1;
-  private string event_ = "";
+  private global::GameEvent event_ = 0;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public string Event {
+  public global::GameEvent Event {
     get { return event_; }
     set {
-      event_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      event_ = value;
     }
   }
 
@@ -1037,7 +800,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (Event.Length != 0) hash ^= Event.GetHashCode();
+    if (Event != 0) hash ^= Event.GetHashCode();
     if (data_ != null) hash ^= Data.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -1052,9 +815,9 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (Event.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Event);
+    if (Event != 0) {
+      output.WriteRawTag(8);
+      output.WriteEnum((int) Event);
     }
     if (data_ != null) {
       output.WriteRawTag(18);
@@ -1068,8 +831,8 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (Event.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Event);
+    if (Event != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Event);
     }
     if (data_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Data);
@@ -1085,7 +848,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate> {
     if (other == null) {
       return;
     }
-    if (other.Event.Length != 0) {
+    if (other.Event != 0) {
       Event = other.Event;
     }
     if (other.data_ != null) {
@@ -1105,8 +868,8 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate> {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 10: {
-          Event = input.ReadString();
+        case 8: {
+          event_ = (global::GameEvent) input.ReadEnum();
           break;
         }
         case 18: {

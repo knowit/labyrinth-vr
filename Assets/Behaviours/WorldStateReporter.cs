@@ -20,12 +20,12 @@ public class WorldStateReporter : MonoBehaviour
 
         _connection.SendUpdate(new GameUpdate
         {
+            Event = GameEvent.VrOrientation,
             Data = new GameMessage
             {
-                InputUpdate = new InputUpdate
+                VrOrientationUpdate = new VROrientationUpdate
                 {
-                    CameraOrientation = Quaternion.identity.ToMessageQuat(),
-                    InputAnalogeAxis = new Vec2
+                    Orientation = new Vec2
                     {
                         X = dx,
                         Y = dy
