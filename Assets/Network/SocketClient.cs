@@ -73,8 +73,10 @@ public class SocketClient
 {
     public Task<SocketConnection> Connect(string host, int port)
     {
-        var ipAddress = host == "localhost" ? Dns.GetHostEntry(host).AddressList.First() : IPAddress.Parse(host);
+        var ipAddress = host == "localhost" ? IPAddress.Loopback : IPAddress.Parse(host);
         var remoteEp = new IPEndPoint(ipAddress, port);
+
+        Debug.Log($"Connecting to {remoteEp.Address}:{remoteEp.Port}");
 
         var client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
