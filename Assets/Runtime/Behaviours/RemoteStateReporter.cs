@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public class WorldStateReporter : MonoBehaviour
+public class RemoteStateReporter : MonoBehaviour
 {
+    public RemotePlayerController player;
+    public bool active = false;
+
     private ServerConnection _connection;
 
     void Start()
@@ -15,8 +18,10 @@ public class WorldStateReporter : MonoBehaviour
 
     void LateUpdate()
     {
-        var dx = Input.GetAxis("Horizontal");
-        var dy = Input.GetAxis("Vertical");
+        if (!active)
+            return;
+
+        var orientation = player.GetWantedOrientation();
 
         _connection.SendUpdate(new GameUpdate
         {
@@ -25,11 +30,7 @@ public class WorldStateReporter : MonoBehaviour
             {
                 VrOrientationUpdate = new VROrientationUpdate
                 {
-                    Orientation = new Vec2
-                    {
-                        X = dx,
-                        Y = dy
-                    }
+                    Orientation = orientation.ToEulerRotationXZ()
                 }
             }
         });

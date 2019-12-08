@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ServerConnection : MonoBehaviour
 {
@@ -16,7 +17,12 @@ public class ServerConnection : MonoBehaviour
     {
         _socketConnection = await _clientSocket.Connect(Host, Port);
 
-        while (gameObject.scene.isLoaded)
+        _socketConnection.OnClose = () =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        };
+
+        while (_socketConnection.Connected)
         {
             var res = await _socketConnection.Receive();
 
@@ -25,6 +31,12 @@ public class ServerConnection : MonoBehaviour
                 callback(res);
             }
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        if (_socketConnection != null)
+            _socketConnection.Close();
     }
 
     public void Register(Action<GameUpdate> callback) => _callbacks.Add(callback);
