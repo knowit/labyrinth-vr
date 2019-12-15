@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ServerConnection : MonoBehaviour
 {
@@ -16,11 +14,6 @@ public class ServerConnection : MonoBehaviour
     async void Start()
     {
         _socketConnection = await _clientSocket.Connect(Host, Port);
-
-        _socketConnection.OnClose = () =>
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        };
 
         while (_socketConnection.Connected)
         {
@@ -43,7 +36,7 @@ public class ServerConnection : MonoBehaviour
 
     public async void SendUpdate(GameUpdate update)
     {
-        if (_socketConnection != null)
+        if (_socketConnection != null && _socketConnection.Connected)
         {
             await _socketConnection.Send(update);
         }

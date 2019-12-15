@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class MessageUtils
+public static class MessageExtensions
 {
     public static Vector2 ToVector2Denormalized(this Vec2 vec2, Vector2 size)
         => new Vector2(

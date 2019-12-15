@@ -3,13 +3,11 @@
 public class RemoteStateReporter : MonoBehaviour
 {
     public RemotePlayerController player;
-    public bool active = false;
-
     private ServerConnection _connection;
 
     void Start()
     {
-        _connection = FindObjectOfType<ServerConnection>();
+        _connection = this.GetServerConnection();
         if (!_connection)
         {
             Debug.LogError("Cant find a server connection");
@@ -18,9 +16,6 @@ public class RemoteStateReporter : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!active)
-            return;
-
         var orientation = player.GetWantedOrientation();
 
         _connection.SendUpdate(new GameUpdate

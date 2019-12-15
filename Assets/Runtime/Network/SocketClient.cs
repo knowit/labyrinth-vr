@@ -46,16 +46,16 @@ public class SocketConnection
 
     public async Task<GameUpdate> Receive()
     {
-        if (!Connected)
-        {
-            OnClose();
-            return new GameUpdate { };
-        }
-
         using (var ms = new MemoryStream())
         {
             while(true)
             {
+                if (!Connected)
+                {
+                    OnClose();
+                    return new GameUpdate { };
+                }
+
                 var bytes = await _connection.ReceiveAsync(buffer, SocketFlags.None);
                 if (bytes == 0)
                     continue;

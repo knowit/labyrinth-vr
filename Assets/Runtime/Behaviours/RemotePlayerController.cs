@@ -5,6 +5,7 @@ public class RemotePlayerController : MonoBehaviour
 {
     Vector3 PointOnBoard(Vector2 position)
     {
+        // TODO: optimise with point-plane projection
         var ray = new Ray
         {
             origin = new Vector3(position.x, 100, position.y),

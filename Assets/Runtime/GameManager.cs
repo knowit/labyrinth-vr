@@ -1,40 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public interface IGameManager
 {
-    public Transform overviewPosition;
-    public RemotePlayerController player;
+    void LoadMainMenu();
+    void LoadGame();
+}
+
+public class GameManagerMock : IGameManager
+{
+    public void LoadMainMenu()
+    {
+        Debug.Log("Load main menu");
+    }
+    public void LoadGame()
+    {
+        Debug.Log("Load game");
+    }
+}
+
+public class GameManager : MonoBehaviour, IGameManager
+{
+    [SceneProperty]
+    public string mainMenuScene;
+
+    [SceneProperty]
+    public string labyrithScene;
 
     void Start()
     {
-        player.Move(overviewPosition.position);
-        GetComponent<ServerConnection>().Register(gu =>
+        LoadMainMenu();
+    }
+
+    public void LoadMainMenu()
+    {
+        if (SceneManager.GetSceneByName(labyrithScene).isLoaded)
         {
-            switch(gu.Event)
+            SceneManager.UnloadSceneAsync(labyrithScene).completed += ap =>
             {
-                case GameEvent.Playing:
-                    StartGame();
-                    break;
-                case GameEvent.Finish:
-                    RestartGame();
-                    break;
-            }
-        });
+                SceneManager.LoadScene(mainMenuScene, LoadSceneMode.Additive);
+            };
+
+            return;
+        }
+
+        SceneManager.LoadScene(mainMenuScene, LoadSceneMode.Additive);
     }
 
-    public void StartGame()
+    public void LoadGame()
     {
-        gameObject.GetComponent<RemoteStateReporter>().active = true;
-        gameObject.GetComponent<RemoteStateUpdater>().active = true;
-    }
+        // Make sure a server connection is hot
+        this.GetServerConnection(true);
 
-    public void RestartGame()
-    {
-        gameObject.GetComponent<RemoteStateReporter>().active = false;
-        gameObject.GetComponent<RemoteStateUpdater>().active = false;
-
-        player.Move(overviewPosition.position);
+        SceneManager.UnloadSceneAsync(mainMenuScene).completed += ap =>
+        {
+            SceneManager.LoadScene(labyrithScene, LoadSceneMode.Additive);
+        };
     }
 }
