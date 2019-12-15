@@ -118,6 +118,7 @@ MonoBehaviour:
   - {fileID: 2968261519217412299}
   m_controller: 2
   m_parentTransform: {fileID: 0}
+  m_player: {fileID: 0}
 --- !u!114 &2968261519211768993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,7 +603,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3637b758ff163493f8bb8b6d7e96d7ae, type: 2}
+  - {fileID: 2100000, guid: 944feb076639a4d39b750e3cb5d7dfab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
