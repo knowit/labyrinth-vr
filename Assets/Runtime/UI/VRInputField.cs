@@ -13,32 +13,27 @@ public class VRInputField : InputField
         var keyboard = GetComponentInChildren<VRKeyboardEvents>();
         keyboard.onKeyEvent.AddListener(new UnityAction<KeyCode>(key =>
         {
-            ProcessEvent(new Event
+            Debug.Log($"VRKeyboard - {key}");
+
+            if (key == KeyCode.Backspace && text.Length > 0)
             {
-                character = (char)key,
-                keyCode = key,
-                type = EventType.KeyDown
-            });
+                text = text.Remove(text.Length-1,1);   
+            }
+            if (key == KeyCode.Return)
+            {
+                onEndEdit.Invoke(text);
+            }
+            else
+            {
+                text += (char)key;
+            }
 
-            ForceLabelUpdate();
         }));
-    }
-
-    public override void OnDeselect(BaseEventData eventData)
-    {
-        base.OnDeselect(eventData);
-        GetComponentInChildren<VRKeyboardEvents>().Close(eventData);
-    }
-
-    public override void OnSubmit(BaseEventData eventData)
-    {
-        base.OnSubmit(eventData);
-        GetComponentInChildren<VRKeyboardEvents>().Close(eventData);
     }
 
     public override void OnSelect(BaseEventData eventData)
     {
         base.OnSelect(eventData);
-        GetComponentInChildren<VRKeyboardEvents>().Open(eventData);
+        GetComponentInChildren<VRKeyboardEvents>().Focus();
     }
 }

@@ -8,17 +8,8 @@ public class VRKeyboardKey : UIBehaviour
 
     public void SetKey(KeyCode code)
     {
-        if (code != KeyCode.Return || code != KeyCode.Backspace)
-        {
-            GetComponentInChildren<Text>().text = $"{(char)code}";
-            return;
-        }
-
-        switch(code)
-        {
-            case KeyCode.Backspace:
-                GetComponentInChildren<Text>().text = "<-";
-                break;
-        }
+        GetComponentInChildren<Text>().text = code != KeyCode.Backspace 
+            ? $"{(char)code}" 
+            : "<";
     }
 }
