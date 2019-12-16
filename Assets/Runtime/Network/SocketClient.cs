@@ -40,7 +40,15 @@ public class SocketConnection
 
             var bytes = ms.ToArray();
 
-            return await _connection.SendAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
+            try
+            {
+                return await _connection.SendAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
+            }
+            catch(SocketException e)
+            {
+                Debug.LogError($"Socket error: {e.Message}");
+                return 0;
+            }
         }
     }
 
@@ -53,25 +61,33 @@ public class SocketConnection
                 if (!Connected)
                 {
                     OnClose();
-                    return new GameUpdate { };
+                    return new GameUpdate { Event = GameEvent.Finish };
                 }
-
-                var bytes = await _connection.ReceiveAsync(buffer, SocketFlags.None);
-                if (bytes == 0)
-                    continue;
-
-                ms.Write(buffer.Array, 0, bytes);
-                ms.Position = 0;
 
                 try
                 {
-                    return GameUpdate.Parser.ParseDelimitedFrom(ms);
+                    var bytes = await _connection.ReceiveAsync(buffer, SocketFlags.None);
+                    if (bytes == 0)
+                        continue;
+
+                    ms.Write(buffer.Array, 0, bytes);
+                    ms.Position = 0;
+
+                    try
+                    {
+                        return GameUpdate.Parser.ParseDelimitedFrom(ms);
+                    }
+                    catch (InvalidProtocolBufferException e)
+                    {
+                        Debug.LogError($"Failed to parse package {e.Message}");
+                    }
+                    await Task.Yield();
                 } 
-                catch (InvalidProtocolBufferException e)
+                catch (SocketException e)
                 {
-                    Debug.LogError($"Failed to parse package {e.Message}");
+                    Debug.LogError($"Socket error: {e.Message}");
+                    continue;
                 }
-                await Task.Yield();
             }
         }
     }
@@ -79,7 +95,7 @@ public class SocketConnection
 
 public class SocketClient
 {
-    public async Task<SocketConnection> Connect(string host, int port)
+    public async Task<SocketConnection> Connect(string host, int port, int retries = 3)
     {
         var ipAddress = host == "localhost" ? IPAddress.Loopback : IPAddress.Parse(host);
         var remoteEp = new IPEndPoint(ipAddress, port);
@@ -89,7 +105,7 @@ public class SocketClient
         var client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
 
-        while (true)
+        while (retries-- > 0)
         {
             try
             {
@@ -102,8 +118,12 @@ public class SocketClient
                 await Task.Yield();
             } 
         }
-        
-        return new SocketConnection(client);
+
+        if (client.Connected)
+            return new SocketConnection(client);
+
+        Debug.Log("Connection failed");
+        return null;
     }
 }
 

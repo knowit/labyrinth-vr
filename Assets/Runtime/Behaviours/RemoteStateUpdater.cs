@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RemoteStateUpdater : MonoBehaviour
 {
@@ -19,12 +20,13 @@ public class RemoteStateUpdater : MonoBehaviour
             return;
         }
 
-        _connection.Register(update => {
+        _connection.onServerEvent.AddListener(new UnityAction<GameUpdate>(update =>
+        {
             if (update.Event == GameEvent.LabyrinthState)
             {
                 _updateQueue.Enqueue(update.Data.LabyrinthStateUpdate);
             }
-        });
+        }));
     }
 
     void FixedUpdate()

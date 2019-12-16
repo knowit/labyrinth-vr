@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class LabyrinthManager : MonoBehaviour
 {
     void Start()
     {
         this.GetServerConnection(true)
-            .Register(gu =>
+            .onServerEvent.AddListener(new UnityAction<GameUpdate>(gu =>
             {
-                switch(gu.Event)
+                switch (gu.Event)
                 {
                     case GameEvent.Playing:
                         // TODO
@@ -16,6 +17,6 @@ public class LabyrinthManager : MonoBehaviour
                         // TODO
                         break;
                 }
-            });
+            }));
     }
 }

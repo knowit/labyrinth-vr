@@ -5,6 +5,7 @@ public interface IGameManager
 {
     void LoadMainMenu();
     void LoadGame();
+    void LoadConnectionTest();
 }
 
 public class GameManagerMock : IGameManager
@@ -17,6 +18,10 @@ public class GameManagerMock : IGameManager
     {
         Debug.Log("Load game");
     }
+    public void LoadConnectionTest()
+    {
+        Debug.Log("Load connection test");
+    }
 }
 
 public class GameManager : MonoBehaviour, IGameManager
@@ -27,34 +32,28 @@ public class GameManager : MonoBehaviour, IGameManager
     [SceneProperty]
     public string labyrithScene;
 
+    [SceneProperty]
+    public string connectionTestScene;
+
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         LoadMainMenu();
     }
 
     public void LoadMainMenu()
     {
-        if (SceneManager.GetSceneByName(labyrithScene).isLoaded)
-        {
-            SceneManager.UnloadSceneAsync(labyrithScene).completed += ap =>
-            {
-                SceneManager.LoadScene(mainMenuScene, LoadSceneMode.Additive);
-            };
-
-            return;
-        }
-
-        SceneManager.LoadScene(mainMenuScene, LoadSceneMode.Additive);
+        SceneManager.LoadScene(mainMenuScene);
     }
 
     public void LoadGame()
     {
-        // Make sure a server connection is hot
-        this.GetServerConnection(true);
+        DontDestroyOnLoad(this.GetServerConnection().gameObject);
+        SceneManager.LoadScene(labyrithScene);   
+    }
 
-        SceneManager.UnloadSceneAsync(mainMenuScene).completed += ap =>
-        {
-            SceneManager.LoadScene(labyrithScene, LoadSceneMode.Additive);
-        };
+    public void LoadConnectionTest()
+    {
+        SceneManager.LoadScene(connectionTestScene);
     }
 }
