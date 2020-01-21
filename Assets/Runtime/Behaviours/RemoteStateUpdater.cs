@@ -40,7 +40,7 @@ public class RemoteStateUpdater : MonoBehaviour
             var rotation = update.BoardOrientation
                 .ToQuaternion();
 
-            player.Move(position);
+            player.transform.position = player.PointOnBoard(position, board);
             board.rotation = rotation;
         }
     }

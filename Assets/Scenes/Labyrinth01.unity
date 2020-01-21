@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c624f141d15384fb2c70ed110e8812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackingSpace: {fileID: 1262812484}
+  hmdTracker: {fileID: 1822268050}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +409,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7388408120830411414, guid: 250733addb768e94987b154a5bcd6791,
     type: 3}
   m_PrefabInstance: {fileID: 1218575085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1262812484 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9078503881379626947, guid: 10436076fe1b1244eb362fa39f1dec90,
+    type: 3}
+  m_PrefabInstance: {fileID: 9078503881630876095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1822268050 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9078503881379554951, guid: 10436076fe1b1244eb362fa39f1dec90,
+    type: 3}
+  m_PrefabInstance: {fileID: 9078503881630876095}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9078503881630876095
 PrefabInstance:

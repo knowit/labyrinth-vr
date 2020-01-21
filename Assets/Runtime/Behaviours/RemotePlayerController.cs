@@ -3,34 +3,29 @@ using UnityEngine;
 
 public class RemotePlayerController : MonoBehaviour
 {
-    Vector3 PointOnBoard(Vector2 position)
+    public Transform trackingSpace;
+    public Transform hmdTracker;
+
+    public Vector3 PointOnBoard(Vector2 position, Transform board)
     {
-        // TODO: optimise with point-plane projection
         var ray = new Ray
         {
             origin = new Vector3(position.x, 100, position.y),
             direction = Vector3.down
         };
-        Debug.DrawRay(ray.origin, ray.direction * 20);
-        return Physics.Raycast(ray, out var hit) && hit.collider.name == "plate"
-            ? hit.point + new Vector3(0.0f,0.2f,0.0f)
+
+        return new Plane(-board.up, 0.5f).Raycast(ray, out var enter) 
+            ? ray.GetPoint(enter)
             : new Vector3(position.x, 1.0f, position.y);
+
     }
 
     public Quaternion GetWantedOrientation()
     {
-        // TODO 
-        return Quaternion.identity;
-    }
+        var hmdLean = (hmdTracker.position - trackingSpace.position).normalized;
+        var angle = Mathf.LerpAngle(2.0f, 0.0f, Mathf.Abs(Vector3.Dot(Vector3.up, hmdLean)));
+        Debug.Log(angle);
 
-    public void Move(Vector2 position)
-    {
-        transform.position = PointOnBoard(position);
-    }
-
-
-    public void Move(Vector3 position)
-    {
-        transform.position = position;
+        return Quaternion.AngleAxis(angle, hmdTracker.right);
     }
 }
