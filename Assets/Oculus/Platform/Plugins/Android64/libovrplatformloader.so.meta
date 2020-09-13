@@ -1,27 +1,24 @@
 fileFormatVersion: 2
-guid: 9e4d076cecdcfcb42b5e44713e05b282
+guid: 04a81fbbe3d22b84882cf2576af22912
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
-  defineConstraints: []
   isPreloaded: 0
   isOverridable: 0
-  isExplicitlyReferenced: 0
-  validateReferences: 1
   platformData:
-  - first:
-      '': first
-    second:
-      enabled: 0
-      settings: {}
   - first:
       Android: Android
     second:
       enabled: 1
       settings:
         CPU: ARM64
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
   - first:
       Editor: Editor
     second:

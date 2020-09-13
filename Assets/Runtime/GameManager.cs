@@ -5,7 +5,6 @@ public interface IGameManager
 {
     void LoadMainMenu();
     void LoadGame();
-    void LoadConnectionTest();
 }
 
 public class GameManagerMock : IGameManager
@@ -18,10 +17,6 @@ public class GameManagerMock : IGameManager
     {
         Debug.Log("Load game");
     }
-    public void LoadConnectionTest()
-    {
-        Debug.Log("Load connection test");
-    }
 }
 
 public class GameManager : MonoBehaviour, IGameManager
@@ -32,8 +27,6 @@ public class GameManager : MonoBehaviour, IGameManager
     [SceneProperty]
     public string labyrithScene;
 
-    [SceneProperty]
-    public string connectionTestScene;
 
     void Start()
     {
@@ -48,12 +41,6 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void LoadGame()
     {
-        DontDestroyOnLoad(this.GetServerConnection().gameObject);
         SceneManager.LoadScene(labyrithScene);   
-    }
-
-    public void LoadConnectionTest()
-    {
-        SceneManager.LoadScene(connectionTestScene);
     }
 }

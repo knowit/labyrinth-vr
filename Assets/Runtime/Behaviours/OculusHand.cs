@@ -14,7 +14,7 @@ public class OculusHand : MonoBehaviour
     public const float THUMB_DEBOUNCE_TIME = 0.15f;
 
     [SerializeField]
-    private OVRInput.Controller m_controller;
+    private OVRInput.Controller m_controller = OVRInput.Controller.None;
     [SerializeField]
     private Animator m_animator = null;
 
