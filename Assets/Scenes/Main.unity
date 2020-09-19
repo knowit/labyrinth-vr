@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuScene: Menu
   labyrithScene: Labyrinth01
+  testScene: TestScene
 --- !u!4 &943130802
 Transform:
   m_ObjectHideFlags: 0
@@ -178,9 +179,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 943130800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 095e8eb3f0c0c01419c0d7e8e3191b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 368258b58209ffb41ad6bb5f3848f21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MqttHost: 127.0.0.1
-  MqttPort: 1883
-  BasePort: 4049
+  BoardAddress: 127.0.0.1
+  BoardStatePort: 4049
+  JoystickStatePort: 4050
+  BallStatePort: 4051

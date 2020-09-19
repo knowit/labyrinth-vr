@@ -170,8 +170,8 @@ PlayerSettings:
     Android: com.hwguild.labyrinth
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 23
-  AndroidTargetSdkVersion: 26
+  AndroidMinSdkVersion: 25
+  AndroidTargetSdkVersion: 27
   AndroidPreferredInstallLocation: 0
   aotOptions: 
   stripEngineCode: 1

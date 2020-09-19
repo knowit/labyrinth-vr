@@ -1,25 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public interface IGameManager
-{
-    void LoadMainMenu();
-    void LoadGame();
-}
 
-public class GameManagerMock : IGameManager
-{
-    public void LoadMainMenu()
-    {
-        Debug.Log("Load main menu");
-    }
-    public void LoadGame()
-    {
-        Debug.Log("Load game");
-    }
-}
-
-public class GameManager : MonoBehaviour, IGameManager
+public class GameManager : MonoBehaviour
 {
     [SceneProperty]
     public string mainMenuScene;
@@ -27,20 +10,18 @@ public class GameManager : MonoBehaviour, IGameManager
     [SceneProperty]
     public string labyrithScene;
 
+    [SceneProperty]
+    public string testScene;
+
 
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        LoadMainMenu();
+        //LoadMainMenu();
+        LoadTestScene();
     }
 
-    public void LoadMainMenu()
-    {
-        SceneManager.LoadScene(mainMenuScene);
-    }
-
-    public void LoadGame()
-    {
-        SceneManager.LoadScene(labyrithScene);   
-    }
+    public void LoadTestScene() => SceneManager.LoadScene(testScene);
+    public void LoadMainMenu() => SceneManager.LoadScene(mainMenuScene);
+    public void LoadGame() => SceneManager.LoadScene(labyrithScene);   
 }

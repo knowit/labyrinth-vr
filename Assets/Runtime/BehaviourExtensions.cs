@@ -4,21 +4,17 @@ using UnityObject = UnityEngine.Object;
 
 public static class BehaviourExtensions
 {
-    public static IslpConnection GetIslpConnection(this MonoBehaviour component)
+    private static T GetSceneBehaviour<T>(string error) where T : UnityObject
     {
-        var connection = UnityObject.FindObjectOfType<IslpConnection>();
-        if (connection)
-            return connection;
-        return null;
+        var res = UnityObject.FindObjectOfType<T>();
+        if (res == null) Debug.LogError(error);
+        return res;
     }
 
-    public static IGameManager GetGameManager(this MonoBehaviour component)
-    {
-        var manager = UnityObject.FindObjectOfType<GameManager>();
-        if (manager)
-            return manager;
+    public static IslpConnection GetIslpConnection(this MonoBehaviour _)
+        => GetSceneBehaviour<IslpConnectionDirect>("ISLP connection missing");
 
-        Debug.Log("Using mock game manager");
-        return new GameManagerMock();
-    }
+    public static GameManager GetGameManager(this MonoBehaviour _)
+        => GetSceneBehaviour<GameManager>("No GameManager");
+
 }
